@@ -1,0 +1,46 @@
+/* ==========================================================================
+   JERSA ERP — Base
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 700; letter-spacing: -0.015em; color: var(--text-primary); }
+p { margin: 0; }
+a { color: var(--text-link); text-decoration: none; }
+button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+button { cursor: pointer; }
+ul { margin: 0; padding: 0; list-style: none; }
+::selection { background: var(--accent-soft); color: var(--text-primary); }
+
+.tabular { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+#app { min-height: 100vh; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Scrollbars — subtle, matches the system feel */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; border: 2px solid var(--bg-canvas); }

@@ -1,77 +1,83 @@
-# Sahod — Payroll System
+# JERSA ERP
 
-A full-stack payroll system for Philippine teams: an **Admin dashboard** (full control) and a separate **Employer dashboard** (run payroll, view reports), both backed by a real Express API — with an Excel file (`payroll.xlsx`) as the database instead of a full SQL setup.
+**Enterprise Workforce & Business Management Platform** — a portfolio demo built to run entirely in the browser, with zero backend, zero build step, and zero install. Open the page and it works.
+
+Live at: `https://<your-username>.github.io/JERSA-ERP/`
+
+## What this is
+
+A fictional company, **Jersa Trading Co.** (a construction & hardware supply business), runs its operations through JERSA ERP. The landing page offers two ways to experience it:
+
+- **View as Administrator** — full company management, signed in as the General Manager.
+- **View as Employee** — a personal portal, signed in as one employee (Miguel Torres, IT Support Specialist).
+
+Both are fully interactive. Data lives in `localStorage`, seeded with realistic sample data the first time the page loads.
+
+## Tech
+
+Plain HTML5, CSS3, and vanilla JavaScript (ES Modules) — no framework, no npm, no bundler. Chart.js is loaded from a CDN for the dashboard charts. That's the entire dependency list.
 
 ```
-sahod-payroll-system/
-├── backend/     Express API — auth, employees, departments, payroll, reports
-└── frontend/    React (Vite) — Login, Admin dashboard, Employer dashboard
+JERSA-ERP/
+├── index.html
+├── css/            tokens, base, components, and per-experience layout styles
+└── js/
+    ├── app.js       entry point — wires up theme + router
+    ├── router.js    minimal hash router (safe for GitHub Pages, no server rewrites)
+    ├── store.js     localStorage-backed data layer
+    ├── seed.js      sample company data for Jersa Trading Co.
+    ├── theme.js     dark/light mode, persisted
+    ├── utils.js     formatting helpers
+    ├── payrollCalc.js  simplified PH payroll math (SSS/PhilHealth/Pag-IBIG/tax)
+    ├── components/  shared UI: shells, KPI cards, charts, icons
+    └── pages/       one file per screen (admin/, employee/)
 ```
 
-## How it's built
+## Running it locally
 
-- **Backend:** Node.js + Express, JWT authentication, bcrypt password hashing, role-based access (`admin` / `employer`). Data is stored in and read from `backend/data/payroll.xlsx` using `exceljs` — no Postgres/MySQL to install.
-- **Frontend:** React + Vite, React Router, Recharts for charts, Axios for the API, plain CSS (no build-step CSS framework, so there's nothing extra to configure).
-
-## Demo accounts
-
-Created automatically the first time the backend runs:
-
-| Role     | Email              | Password    |
-|----------|--------------------|-------------|
-| Admin    | admin@sahod.ph     | admin123    |
-| Employer | employer@sahod.ph  | employer123 |
-
-Admins get full CRUD on employees/departments, payroll runs, reports, and can create more admin/employer accounts under **Users**. Employers get a read-mostly view of their team, plus the ability to generate and advance payroll runs and export reports.
-
-## Run it locally
-
-**1. Backend**
-```bash
-cd backend
-cp .env.example .env
-npm install
-npm run dev        # or: npm start
-```
-The first run creates `backend/data/payroll.xlsx` automatically with the demo accounts and sample employees. Open it directly in Excel any time you want to look at the raw data.
-
-API runs at `http://localhost:5000`.
-
-**2. Frontend** (in a new terminal)
-```bash
-cd frontend
-cp .env.example .env
-npm install
-npm run dev
-```
-App runs at `http://localhost:5173` and talks to the backend via `VITE_API_URL` in `frontend/.env`.
-
-Sign in with either demo account — you'll land on `/admin` or `/employer` depending on the role.
-
-## Resetting the data
+Since it uses ES Modules, open it through a local server rather than double-clicking `index.html` (browsers block module imports over `file://`):
 
 ```bash
-cd backend
-npm run seed        # only seeds if payroll.xlsx is missing
-node src/seed.js --reset   # deletes and recreates payroll.xlsx from scratch
+cd JERSA-ERP
+python3 -m http.server 8080
+# then open http://localhost:8080
 ```
 
-## Pushing to GitHub
+Any static server works — `npx serve`, VS Code's Live Server extension, etc.
+
+## Deploying to GitHub Pages
 
 ```bash
-cd sahod-payroll-system
+cd JERSA-ERP
 git init
 git add .
-git commit -m "Sahod payroll system — Express + Excel backend, Admin/Employer dashboards"
+git commit -m "JERSA ERP — Admin & Employee dashboards"
 git branch -M main
-git remote add origin https://github.com/<your-username>/<repo-name>.git
+git remote add origin https://github.com/<username>/JERSA-ERP.git
 git push -u origin main
 ```
 
-`backend/data/payroll.xlsx` and both `.env` files are gitignored on purpose — anyone who clones the repo runs `npm run dev` and gets a fresh seeded database, without committing password hashes or secrets to GitHub.
+Then in the repo: **Settings → Pages → Source → Deploy from a branch → `main` / `root`**. The `.nojekyll` file is already included so GitHub doesn't try to run Jekyll over it.
+
+## Build status — what's real right now
+
+Built module by module, on purpose. A module only appears in the navigation once it is fully working — nothing in this project is a dead link or a fake page.
+
+| Module | Status |
+|---|---|
+| Landing (role selection) | ✅ Built |
+| Admin → Dashboard | ✅ Built — live KPIs and 5 charts computed from real seeded data |
+| Employee → Dashboard | ✅ Built — real clock in/out, attendance calendar, payslip snapshot, leave balance, announcements, holidays |
+| HRIS (Employees, Departments) | 🔜 Next |
+| Attendance (full module) | 🔜 Planned |
+| Payroll (processing & payslips) | 🔜 Planned |
+| Inventory | 🔜 Planned |
+| Point of Sale | 🔜 Planned |
+| Reports & Analytics | 🔜 Planned |
+| Users, Settings, Notifications, Audit Logs | 🔜 Planned |
 
 ## Notes for the portfolio write-up
 
-- SSS / PhilHealth / Pag-IBIG / withholding tax formulas are simplified for demonstration — not the exact current BIR tables. Worth a one-line disclaimer if this is client-facing.
-- "Positions," "Attendance," and "Leaves" are shown in the sidebar as honest roadmap placeholders rather than fake working modules — everything you see actually run is real.
-- Swapping the Excel store for Postgres/Prisma later only touches `backend/src/db/excelStore.js` — the routes call `getDB()` / `save()`, so the rest of the API doesn't need to change.
+- Payroll math (SSS/PhilHealth/Pag-IBIG/withholding tax) is simplified for demonstration — not the exact current BIR tables.
+- The employee attendance calendar's past days use a deterministic pattern (not real historical records, since there's no backend) — it's labeled as such in code, and it's stable across reloads rather than randomized on every visit.
+- All data resets if the visitor clears their browser's localStorage for this site — that's expected for a static demo.
