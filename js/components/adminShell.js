@@ -9,6 +9,8 @@ import { getDB } from '../store.js';
 // its page ships — never before.
 export const ADMIN_NAV = [
   { key: 'dashboard', label: 'Dashboard', icon: 'layoutDashboard', path: '/admin/dashboard' },
+  { key: 'employees', label: 'Employees', icon: 'users', path: '/admin/employees' },
+  { key: 'departments', label: 'Departments', icon: 'building', path: '/admin/departments' },
 ];
 
 export function renderAdminShell(root, activeKey) {

@@ -102,3 +102,91 @@
 
 /* Utility icon sizing (inline lucide svgs get a class) */
 .icon { display: inline-block; vertical-align: middle; }
+
+/* ---------- Toolbar (search + filters above a table) ---------- */
+.toolbar { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+.field-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-sm);
+  padding: 8px 12px; width: 240px; color: var(--text-tertiary);
+}
+.field-search input { background: transparent; border: none; outline: none; font-size: 13.5px; color: var(--text-primary); width: 100%; }
+.field-select {
+  padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-default);
+  background: var(--bg-canvas); color: var(--text-primary); font-size: 13.5px;
+}
+.toolbar-spacer { flex: 1; }
+.toolbar-count { font-size: 12.5px; color: var(--text-tertiary); }
+
+/* ---------- Data table ---------- */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.data-table thead tr { background: var(--bg-sunken); }
+.data-table th {
+  text-align: left; padding: 10px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-tertiary); font-weight: 700; white-space: nowrap;
+}
+.data-table th.sortable { cursor: pointer; user-select: none; }
+.data-table th.sortable:hover { color: var(--text-primary); }
+.data-table th .sort-arrow { margin-left: 4px; opacity: 0.4; font-size: 10px; }
+.data-table th.sort-active .sort-arrow { opacity: 1; color: var(--accent); }
+.data-table td { padding: 11px 14px; border-top: 1px solid var(--border-subtle); vertical-align: middle; }
+.data-table tbody tr { cursor: pointer; transition: background var(--dur-fast); }
+.data-table tbody tr:hover { background: var(--bg-sunken); }
+.cell-primary { font-weight: 600; color: var(--text-primary); }
+.cell-sub { font-size: 11.5px; color: var(--text-tertiary); }
+
+@media (max-width: 760px) {
+  .data-table thead { display: none; }
+  .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+  .data-table tr { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); margin: var(--space-3); padding: var(--space-3); background: var(--bg-surface); }
+  .data-table td { border-top: none; padding: 6px 2px; display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); text-align: right; }
+  .data-table td::before { content: attr(data-label); font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-tertiary); text-align: left; }
+  .data-table td.cell-nolabel::before { content: ''; }
+}
+
+/* ---------- Pagination ---------- */
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); flex-wrap: wrap; gap: var(--space-3); }
+.pagination-info { font-size: 12.5px; color: var(--text-tertiary); }
+.pagination-controls { display: flex; align-items: center; gap: var(--space-2); }
+.btn-icon:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-icon:disabled:hover { border-color: var(--border-default); color: var(--text-secondary); }
+
+/* ---------- Drawer (slide-over detail panel) ---------- */
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 85;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease-out);
+}
+.drawer-overlay.is-open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 92vw;
+  background: var(--bg-surface); border-left: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg);
+  transform: translateX(100%); transition: transform var(--dur-base) var(--ease-out);
+  display: flex; flex-direction: column; z-index: 86;
+}
+.drawer.is-open { transform: translateX(0); }
+.drawer-head { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--space-5); border-bottom: 1px solid var(--border-subtle); flex-shrink: 0; }
+.drawer-body { padding: var(--space-5); overflow-y: auto; flex: 1; }
+.drawer-row { display: flex; justify-content: space-between; gap: var(--space-3); padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 13px; }
+.drawer-row:last-child { border-bottom: none; }
+.drawer-row dt { color: var(--text-tertiary); }
+.drawer-row dd { margin: 0; color: var(--text-primary); font-weight: 500; text-align: right; }
+.drawer-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-tertiary); margin: var(--space-5) 0 var(--space-2); }
+.drawer-section-title:first-child { margin-top: 0; }
+
+/* ---------- Modal (add / edit forms) ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 90;
+  display: flex; align-items: center; justify-content: center; padding: var(--space-4);
+}
+.modal { width: 100%; max-width: 540px; max-height: 88vh; overflow-y: auto; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; padding: var(--space-5); border-bottom: 1px solid var(--border-subtle); }
+.modal-head h3 { font-size: 15px; }
+.modal-body { padding: var(--space-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.modal-body .full { grid-column: 1 / -1; }
+.modal-actions { grid-column: 1 / -1; display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+.field label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-tertiary); display: block; margin-bottom: 6px; }
+.field input, .field select {
+  width: 100%; padding: 9px 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-default);
+  background: var(--bg-canvas); color: var(--text-primary); font-size: 13.5px;
+}
+.field input:focus, .field select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }

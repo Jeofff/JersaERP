@@ -3,7 +3,7 @@
 const THEME_KEY = 'jersa_erp_theme';
 
 export function getTheme() {
-  return localStorage.getItem(THEME_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  return localStorage.getItem(THEME_KEY) || 'dark';
 }
 
 export function applyTheme(theme) {

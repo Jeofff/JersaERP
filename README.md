@@ -6,7 +6,7 @@ Live at: `https://<your-username>.github.io/JERSA-ERP/`
 
 ## What this is
 
-A fictional company, **Jersa Trading Co.** (a construction & hardware supply business), runs its operations through JERSA ERP. The landing page offers two ways to experience it:
+A fictional company, **Jersa Trading Corporation** (construction supply, hardware, and distribution — 150 employees across 9 departments), runs its operations through JERSA ERP. The landing page offers two ways to experience it:
 
 - **View as Administrator** — full company management, signed in as the General Manager.
 - **View as Employee** — a personal portal, signed in as one employee (Miguel Torres, IT Support Specialist).
@@ -67,14 +67,15 @@ Built module by module, on purpose. A module only appears in the navigation once
 |---|---|
 | Landing (role selection) | ✅ Built |
 | Admin → Dashboard | ✅ Built — live KPIs and 5 charts computed from real seeded data |
+| Admin → Employees | ✅ Built — search, filter, sort, pagination, add employee, detail drawer |
+| Admin → Departments | ✅ Built — live headcount, budget, and payroll cost per department |
 | Employee → Dashboard | ✅ Built — real clock in/out, attendance calendar, payslip snapshot, leave balance, announcements, holidays |
-| HRIS (Employees, Departments) | 🔜 Next |
 | Attendance (full module) | 🔜 Planned |
 | Payroll (processing & payslips) | 🔜 Planned |
 | Inventory | 🔜 Planned |
-| Point of Sale | 🔜 Planned |
+| Sales / Point of Sale | 🔜 Planned |
 | Reports & Analytics | 🔜 Planned |
-| Users, Settings, Notifications, Audit Logs | 🔜 Planned |
+| Settings, Notifications, Audit Logs, Profile, Help Center | 🔜 Planned |
 
 ## Notes for the portfolio write-up
 

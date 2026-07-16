@@ -30,5 +30,10 @@ export const icons = {
   download: (s) => svg('<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>', s),
   printer: (s) => svg('<path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/>', s),
   chevronRight: (s) => svg('<path d="m9 18 6-6-6-6"/>', s),
+  chevronLeft: (s) => svg('<path d="m15 18-6-6 6-6"/>', s),
+  plus: (s) => svg('<path d="M12 5v14M5 12h14"/>', s),
+  x: (s) => svg('<path d="M18 6 6 18M6 6l12 12"/>', s),
+  mail: (s) => svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/>', s),
+  phone: (s) => svg('<path d="M6.6 10.5c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.7-.4 1-.2 1 .4 2.2.6 3.3.6.6 0 1 .4 1 1v3c0 .6-.4 1-1 1A16.5 16.5 0 0 1 3.4 4.5c0-.6.4-1 1-1h3c.6 0 1 .4 1 1 0 1.1.2 2.3.6 3.3.1.4 0 .8-.2 1L6.6 10.5Z"/>', s),
   sparkles: (s) => svg('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M17.5 17.5 15 15M6 18l2.5-2.5M17.5 6.5 15 9"/>', s),
 };
