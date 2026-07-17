@@ -28,6 +28,14 @@
 
 .employee-right { display: flex; align-items: center; gap: var(--space-3); }
 
+@media (max-width: 640px) {
+  .employee-topbar-inner { padding: 0 var(--space-4); }
+  .employee-brand .portal-tag { display: none; }
+}
+@media (max-width: 380px) {
+  .employee-brand span { display: none; }
+}
+
 .employee-content { flex: 1; display: flex; justify-content: center; padding: var(--space-10) var(--space-6) var(--space-16); }
 .employee-content-inner { width: 100%; max-width: 920px; }
 

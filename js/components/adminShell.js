@@ -19,7 +19,8 @@ export function renderAdminShell(root, activeKey) {
 
   root.innerHTML = `
     <div class="admin-shell">
-      <aside class="admin-sidebar">
+      <div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+      <aside class="admin-sidebar" id="adminSidebar">
         <div class="brand">
           <div class="glyph">J</div>
           <span>JERSA ERP</span>
@@ -39,7 +40,10 @@ export function renderAdminShell(root, activeKey) {
       </aside>
       <div class="admin-main">
         <header class="admin-topbar">
-          <div class="crumb">Admin / <b>${ADMIN_NAV.find((n) => n.key === activeKey)?.label || ''}</b></div>
+          <div class="admin-topbar-left">
+            <button class="btn-icon admin-menu-toggle" id="menuToggle" aria-label="Open menu">${icons.menu(18)}</button>
+            <div class="crumb">Admin / <b>${ADMIN_NAV.find((n) => n.key === activeKey)?.label || ''}</b></div>
+          </div>
           <div class="admin-topbar-right">
             <div class="admin-search">${icons.search(14)} <span>Search…</span></div>
             <button class="theme-toggle" id="themeToggle" title="Toggle theme">${theme === 'dark' ? icons.sun(16) : icons.moon(16)}</button>
@@ -56,8 +60,17 @@ export function renderAdminShell(root, activeKey) {
     </div>
   `;
 
+  const sidebar = root.querySelector('#adminSidebar');
+  const overlay = root.querySelector('#sidebarOverlay');
+
+  function openMenu() { sidebar.classList.add('is-open'); overlay.classList.add('is-open'); }
+  function closeMenu() { sidebar.classList.remove('is-open'); overlay.classList.remove('is-open'); }
+
+  root.querySelector('#menuToggle').addEventListener('click', openMenu);
+  overlay.addEventListener('click', closeMenu);
+
   root.querySelectorAll('.admin-navitem[data-path]').forEach((btn) => {
-    btn.addEventListener('click', () => navigate(btn.dataset.path));
+    btn.addEventListener('click', () => { navigate(btn.dataset.path); closeMenu(); });
   });
   root.querySelector('#backToLanding').addEventListener('click', () => navigate('/'));
   root.querySelector('#themeToggle').addEventListener('click', () => {

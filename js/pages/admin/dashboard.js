@@ -34,7 +34,7 @@ export function renderAdminDashboard(root) {
 
     <div class="grid-cols-4" id="kpiGrid"></div>
 
-    <div class="chart-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+    <div class="chart-grid-2">
       <div class="jr-card chart-card">
         <div class="chart-card-head"><h3>Payroll trend</h3><span class="meta">Last 6 months</span></div>
         <div class="chart-canvas-wrap"><canvas id="chartPayroll"></canvas></div>
@@ -45,7 +45,7 @@ export function renderAdminDashboard(root) {
       </div>
     </div>
 
-    <div class="chart-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+    <div class="chart-grid-2">
       <div class="jr-card chart-card">
         <div class="chart-card-head"><h3>Attendance trend</h3><span class="meta">Weekly presence rate</span></div>
         <div class="chart-canvas-wrap"><canvas id="chartAttendance"></canvas></div>

@@ -7,6 +7,12 @@
 
 import { todayISO } from './utils.js';
 
+// Bump this whenever buildSeed()'s shape or scale changes (new fields,
+// renamed company, different employee count, etc). store.js compares this
+// against what is cached in localStorage and reseeds automatically when
+// they don't match, so returning visitors never get stuck on stale data.
+export const SCHEMA_VERSION = 2;
+
 const DEPARTMENTS_DEF = [
   { id: 'dept_mgmt', name: 'Management', budget: 780000, weight: 3 },
   { id: 'dept_hr', name: 'HR', budget: 320000, weight: 6 },
@@ -183,6 +189,7 @@ export function buildSeed() {
   const holidays = buildHolidayList();
 
   return {
+    schemaVersion: SCHEMA_VERSION,
     company: { name: 'Jersa Trading Corporation', tagline: 'Construction Supply, Hardware and Distribution', founded: 2019 },
     departments,
     employees,

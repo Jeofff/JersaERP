@@ -31,10 +31,13 @@
 .admin-topbar {
   height: 60px; flex-shrink: 0; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);
   display: flex; align-items: center; justify-content: space-between; padding: 0 var(--space-6);
+  gap: var(--space-3);
 }
-.admin-topbar .crumb { font-size: 13px; color: var(--text-secondary); }
+.admin-topbar-left { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.admin-menu-toggle { display: none; flex-shrink: 0; }
+.admin-topbar .crumb { font-size: 13px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .admin-topbar .crumb b { color: var(--text-primary); }
-.admin-topbar-right { display: flex; align-items: center; gap: var(--space-3); }
+.admin-topbar-right { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
 .admin-search {
   display: flex; align-items: center; gap: 8px; background: var(--bg-sunken); border: 1px solid transparent;
   border-radius: var(--radius-sm); padding: 7px 12px; width: 240px; color: var(--text-tertiary); font-size: 13px;
@@ -46,3 +49,33 @@
 
 .admin-content { flex: 1; overflow-y: auto; padding: var(--space-6); }
 .admin-content-inner { max-width: 1360px; margin: 0 auto; }
+
+.admin-sidebar-overlay { display: none; }
+
+/* ---------- Mobile: sidebar becomes a slide-in menu ---------- */
+@media (max-width: 880px) {
+  .admin-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 120;
+    transform: translateX(-100%);
+    transition: transform var(--dur-base) var(--ease-out);
+    box-shadow: var(--shadow-lg);
+  }
+  .admin-sidebar.is-open { transform: translateX(0); }
+
+  .admin-sidebar-overlay {
+    display: block; position: fixed; inset: 0; z-index: 115;
+    background: rgba(0,0,0,0.55); opacity: 0; pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+  .admin-sidebar-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+  .admin-menu-toggle { display: flex; }
+  .admin-search { display: none; }
+  .admin-user .meta { display: none; }
+  .admin-content { padding: var(--space-4); }
+}
+
+@media (max-width: 480px) {
+  .admin-topbar { padding: 0 var(--space-4); }
+  .admin-topbar .crumb { font-size: 12px; }
+}
